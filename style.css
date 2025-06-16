@@ -1,0 +1,118 @@
+/* Importation d'une police sympa qui ressemble à celle de l'exemple */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* Style général de la page */
+body {
+    background-color: #0d47a1; /* Un bleu foncé comme sur ton image */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Le conteneur principal du jeu */
+.game-container {
+    background-color: #1e88e5; /* Un bleu plus clair pour la zone de jeu */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+#timer {
+    background-color: #ff6f00; /* Un orange pour le minuteur */
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.zone-cartes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Espace entre les cartes */
+    min-height: 100px; /* Hauteur minimale pour que la zone soit visible */
+    padding: 10px;
+}
+
+.separateur {
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 30px 0;
+}
+
+/* Style des cartes à glisser */
+.carte {
+    background-color: white;
+    color: #333;
+    padding: 20px 10px;
+    width: 100px;
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    cursor: grab; /* Le curseur indique qu'on peut prendre l'objet */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+/* Style pour la carte en cours de déplacement */
+.carte.dragging {
+    opacity: 0.5;
+    transform: scale(1.1); /* On l'agrandit un peu */
+    cursor: grabbing;
+}
+
+/* Style des emplacements cibles */
+.cible {
+    width: 100px;
+    height: 50px;
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+/* Style quand on survole une cible avec une carte */
+.cible.hovered {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Style pour les messages de fin de partie */
+.hidden {
+    display: none;
+}
+
+#message-fin {
+    margin-top: 20px;
+}
+
+#rejouer-btn {
+    background-color: #ff6f00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+#rejouer-btn:hover {
+    background-color: #e65100;
+}
