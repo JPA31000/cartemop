@@ -145,10 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
             cible.addEventListener('drop', (e) => {
                 e.preventDefault();
                 e.target.classList.remove('hovered');
-                
+
                 // Si la cible est vide, on y place la carte
                 if (e.target.children.length === 0 && e.target.classList.contains('cible')) {
+                    // Retirer les indicateurs de l'ancienne cible si besoin
+                    const ancienneCible = carteEnCoursDeDrag.parentElement;
+                    if (ancienneCible && ancienneCible.classList.contains('cible')) {
+                        ancienneCible.classList.remove('correct', 'incorrect');
+                    }
+
                     e.target.appendChild(carteEnCoursDeDrag);
+
+                    // Vérifie immédiatement si la carte est bien placée
+                    const attendu = ORDRE_CORRECT[parseInt(e.target.dataset.index, 10)];
+                    if (carteEnCoursDeDrag.id === attendu) {
+                        e.target.classList.add('correct');
+                        e.target.classList.remove('incorrect');
+                    } else {
+                        e.target.classList.add('incorrect');
+                        e.target.classList.remove('correct');
+                    }
                 }
 
                 // Vérifier si toutes les cartes sont placées
@@ -162,6 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
          cartesSourceContainer.addEventListener('dragover', (e) => e.preventDefault());
          cartesSourceContainer.addEventListener('drop', (e) => {
              e.preventDefault();
+             const ancienneCible = carteEnCoursDeDrag.parentElement;
+             if (ancienneCible && ancienneCible.classList.contains('cible')) {
+                 ancienneCible.classList.remove('correct', 'incorrect');
+             }
              cartesSourceContainer.appendChild(carteEnCoursDeDrag);
          });
     }
