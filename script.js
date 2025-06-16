@@ -95,10 +95,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.classList.add('dragging');
             });
 
+            // Support tactile
+            carte.addEventListener('touchstart', (e) => {
+                carteEnCoursDeDrag = e.target;
+                e.target.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
             carte.addEventListener('dragend', (e) => {
                 e.target.classList.remove('dragging');
                 carteEnCoursDeDrag = null;
             });
+
+            carte.addEventListener('touchend', (e) => {
+                e.target.classList.remove('dragging');
+                const touch = e.changedTouches[0];
+                const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+                if (elem) {
+                    const cible = elem.closest('.cible');
+                    if (cible && cible.children.length === 0) {
+                        cible.appendChild(carteEnCoursDeDrag);
+                    } else if (elem.closest('#cartes-source')) {
+                        cartesSourceContainer.appendChild(carteEnCoursDeDrag);
+                    }
+
+                    if (cartesCibleContainer.querySelectorAll('.carte').length === ORDRE_CORRECT.length) {
+                        verifierOrdre();
+                    }
+                }
+                carteEnCoursDeDrag = null;
+            });
+
+            carte.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+            }, { passive: false });
         });
 
         // Pour chaque cible...
