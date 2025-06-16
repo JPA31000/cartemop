@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartesSourceContainer = document.getElementById('cartes-source');
     const cartesCibleContainer = document.getElementById('cartes-cible');
     const timerElement = document.getElementById('timer');
+    const scoreContainer = document.getElementById('score');
     const messageFinContainer = document.getElementById('message-fin');
     const messageTexteElement = document.getElementById('message-texte');
     const rejouerBtn = document.getElementById('rejouer-btn');
@@ -61,6 +62,7 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
         // Vider les conteneurs au cas où on rejoue
         cartesSourceContainer.innerHTML = '';
         cartesCibleContainer.innerHTML = '';
+        scoreContainer.innerHTML = '';
         messageFinContainer.classList.add('hidden');
 
         // Mélanger les cartes avant de les afficher
@@ -78,15 +80,36 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
             cartesSourceContainer.appendChild(carte);
         });
 
-        // Créer les emplacements cibles
+        // Créer les emplacements cibles et les points de score
         ORDRE_CORRECT.forEach((_, index) => {
             const cible = document.createElement('div');
             cible.classList.add('cible');
             cible.dataset.index = index; // On stocke l'index de la cible
             cartesCibleContainer.appendChild(cible);
+
+            const point = document.createElement('div');
+            point.classList.add('point');
+            scoreContainer.appendChild(point);
         });
 
         ajouterListenersDragAndDrop();
+        mettreAJourPoints();
+    }
+
+    /**
+     * Met à jour l'affichage des points en fonction des placements.
+     */
+    function mettreAJourPoints() {
+        const points = scoreContainer.querySelectorAll('.point');
+        const cibles = cartesCibleContainer.querySelectorAll('.cible');
+        cibles.forEach((cible, index) => {
+            const carte = cible.querySelector('.carte');
+            if (carte && carte.id === ORDRE_CORRECT[index]) {
+                points[index].classList.add('correct');
+            } else {
+                points[index].classList.remove('correct');
+            }
+        });
     }
 
     /**
@@ -147,6 +170,7 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
                     if (cartesCibleContainer.querySelectorAll('.carte').length === ORDRE_CORRECT.length) {
                         verifierOrdre();
                     }
+                    mettreAJourPoints();
                 }
                 carteEnCoursDeDrag = null;
             });
@@ -196,6 +220,7 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
                 if (cartesCibleContainer.querySelectorAll('.carte').length === ORDRE_CORRECT.length) {
                     verifierOrdre();
                 }
+                mettreAJourPoints();
             });
         });
         
@@ -203,11 +228,12 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
          cartesSourceContainer.addEventListener('dragover', (e) => e.preventDefault());
          cartesSourceContainer.addEventListener('drop', (e) => {
              e.preventDefault();
-             const ancienneCible = carteEnCoursDeDrag.parentElement;
-             if (ancienneCible && ancienneCible.classList.contains('cible')) {
+            const ancienneCible = carteEnCoursDeDrag.parentElement;
+            if (ancienneCible && ancienneCible.classList.contains('cible')) {
                  ancienneCible.classList.remove('correct', 'incorrect');
              }
              cartesSourceContainer.appendChild(carteEnCoursDeDrag);
+             mettreAJourPoints();
          });
     }
     

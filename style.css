@@ -36,6 +36,23 @@ header {
     display: inline-block;
 }
 
+#score {
+    margin-top: 10px;
+}
+
+.point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.point.correct {
+    background-color: #4caf50;
+}
+
 .zone-cartes {
     display: flex;
     flex-wrap: wrap;
