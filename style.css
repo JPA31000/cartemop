@@ -77,8 +77,8 @@ header {
 
 /* Style des emplacements cibles */
 .cible {
-    width: 100px;
-    height: 50px;
+    width: 120px;
+    height: 60px;
     border: 2px dashed rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     display: flex;
@@ -139,8 +139,8 @@ header {
 
     .carte,
     .cible {
-        width: 80px;
-        height: 40px;
+        width: 100px;
+        height: 50px;
     }
 
     .carte {
