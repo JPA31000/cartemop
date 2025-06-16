@@ -24,6 +24,18 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
         DET: "Direction de l'ex\xE9cution des travaux",
         DOE: 'Dossier des ouvrages ex\xE9cut\xE9s'
     };
+
+    // Résumés courts pour chaque phase
+    const RESUMES = {
+        ESQ: 'Premières esquisses du projet',
+        APS: 'Définition sommaire des solutions',
+        APD: 'Choix définitif des options',
+        PRO: 'Dossier complet du projet',
+        VISA: "Validation des \xE9tudes d'ex\xE9cution",
+        EXE: 'Plans détaillés pour le chantier',
+        DET: "Suivi et direction des travaux",
+        DOE: 'Documentation des ouvrages réalisés'
+    };
     
     let tempsRestant = 120; // 2 minutes en secondes
     let minuteur;
@@ -62,7 +74,7 @@ const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
             carte.setAttribute('draggable', 'true'); // Indispensable pour le drag-and-drop
             carte.id = nomCarte; // L'id nous servira pour la vérification
             carte.textContent = nomCarte;
-            carte.title = NOMS_COMPLETS[nomCarte] || nomCarte;
+            carte.title = `${NOMS_COMPLETS[nomCarte]} - ${RESUMES[nomCarte]}`;
             cartesSourceContainer.appendChild(carte);
         });
 
