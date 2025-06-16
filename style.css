@@ -92,6 +92,19 @@ header {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Mise en évidence des placements */
+.cible.correct {
+    border-color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.cible.incorrect {
+    border-color: #f44336;
+    background-color: rgba(244, 67, 54, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
 /* Style pour les messages de fin de partie */
 .hidden {
     display: none;
