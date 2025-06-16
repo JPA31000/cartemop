@@ -9,9 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Données du Jeu ---
     // Les cartes dans le désordre pour l'affichage initial
-    const CARTES_JEU = ["ESQ", "APS", "APD", "PRO", "EXE", "VISA", "DET", "DOE"];
-    // L'ordre correct pour la vérification
-    const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
+const CARTES_JEU = ["ESQ", "APS", "APD", "PRO", "EXE", "VISA", "DET", "DOE"];
+// L'ordre correct pour la vérification
+const ORDRE_CORRECT = ["ESQ", "APS", "APD", "PRO", "VISA", "EXE", "DET", "DOE"];
+
+    // Noms complets pour l'affichage des info-bulles
+    const NOMS_COMPLETS = {
+        ESQ: 'Esquisse',
+        APS: 'Avant-projet sommaire',
+        APD: 'Avant-projet d\xE9finitif',
+        PRO: 'Projet',
+        VISA: 'Visa',
+        EXE: "\xC9tudes d'ex\xE9cution",
+        DET: "Direction de l'ex\xE9cution des travaux",
+        DOE: 'Dossier des ouvrages ex\xE9cut\xE9s'
+    };
     
     let tempsRestant = 120; // 2 minutes en secondes
     let minuteur;
@@ -50,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             carte.setAttribute('draggable', 'true'); // Indispensable pour le drag-and-drop
             carte.id = nomCarte; // L'id nous servira pour la vérification
             carte.textContent = nomCarte;
+            carte.title = NOMS_COMPLETS[nomCarte] || nomCarte;
             cartesSourceContainer.appendChild(carte);
         });
 
